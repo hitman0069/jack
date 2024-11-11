@@ -1,0 +1,28 @@
+CREATE TABLE source_table (
+    id INT PRIMARY KEY,
+    name VARCHAR(50),
+    value NUMBER
+);
+CREATE TABLE destination_table (
+    id INT PRIMARY KEY,
+    name VARCHAR(50),
+    value NUMBER
+);
+DECLARE
+    CURSOR src_cursor IS
+        SELECT id, name, value FROM source_table;
+    v_id source_table.id%TYPE;
+BEGIN
+    FOR src_rec IN src_cursor LOOP
+        BEGIN
+            SELECT id INTO v_id FROM destination_table WHERE id = src_rec.id;
+        EXCEPTION
+            WHEN NO_DATA_FOUND THEN
+                INSERT INTO destination_table (id, name, value)
+                VALUES (src_rec.id, src_rec.name, src_rec.value);
+        END;
+    END LOOP;
+    COMMIT;
+END;
+
+

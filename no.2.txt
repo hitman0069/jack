@@ -1,0 +1,26 @@
+CREATE TABLE employees (
+    emp_id INT PRIMARY KEY,
+    emp_name VARCHAR(50),
+    department VARCHAR(20),
+    salary DECIMAL(10, 2),
+    hire_date DATE,
+    city VARCHAR(30)
+);
+INSERT INTO employees VALUES (1, 'Alice', 'HR', 55000, '2020-02-15', 'New York');
+INSERT INTO employees VALUES (2, 'Bob', 'IT', 65000, '2019-05-21', 'San Francisco');
+INSERT INTO employees VALUES (3, 'Charlie', 'Finance', 60000, '2021-07-12', 'Chicago');
+INSERT INTO employees VALUES (4, 'Daisy', 'Marketing', 70000, '2020-11-01', 'New York');
+INSERT INTO employees VALUES (5, 'Evan', 'IT', 80000, '2018-03-14', 'Seattle');
+SELECT * FROM employees WHERE department = 'IT';
+UPDATE employees SET salary = 68000 WHERE emp_id = 2;
+DELETE FROM employees WHERE hire_date < '2019-01-01';
+INSERT INTO employees (emp_id, emp_name, department, salary, hire_date, city) 
+VALUES (6, 'Fiona', 'Finance', 72000, '2022-08-25', 'Los Angeles');
+SELECT * FROM employees WHERE salary > 60000 ORDER BY salary DESC;
+UPDATE employees SET salary = salary * 1.10 WHERE department = 'Marketing';
+SELECT city, COUNT(emp_id) AS total_employees FROM employees GROUP BY city;
+SELECT * FROM employees WHERE hire_date <= DATE_SUB(CURDATE(), INTERVAL 2 YEAR);
+INSERT INTO employees (emp_id, emp_name, department, salary, hire_date, city) 
+VALUES (7, 'George', 'IT', 75000, '2021-05-10', 'New York'),
+       (8, 'Hannah', 'HR', 54000, '2022-01-20', 'Chicago');
+SELECT * FROM employees WHERE department IN ('Finance', 'IT') AND salary > 60000;

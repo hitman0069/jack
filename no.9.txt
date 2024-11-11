@@ -1,0 +1,9 @@
+db.createCollection("user")
+
+db.user.insertMany([{'name':'ava','salary':1000},{'name':'mihir','salary':800}])
+
+db.user.update({'name':'ava'},{$set:{'name':'avaneesh'}})
+
+db.user.find({'name':'avaneesh'})
+
+db.user.deleteOne({'name':'mihir'})
